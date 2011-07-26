@@ -3,7 +3,7 @@
  * [Gravatar's](http://en.gravatar.com) are universal avatars available to all web sites and services.
  * Users must register their email addresses with Gravatar before their avatars will be
  * usable with this module. Users with gravatars can have a default image of your selection.
- * 
+ *
  * @see        http://en.gravatar.com
  * @package    Kohana
  * @category   Gravatar
@@ -91,22 +91,22 @@ class Kohana_Gravatar {
 
 		if (empty($config))
 		{
-			$this->_config = Kohana::config('gravatar.default');
+			$this->_config = Kohana::$config->load('gravatar')->default;
 		}
 		elseif (is_array($config))
 		{
 			// Setup the configuration
-			$config += Kohana::config('gravatar.default');
+			$config += Kohana::$config->load('gravatar')->default;
 			$this->_config = $config;
 		}
 		elseif (is_string($config))
 		{
-			if ($config = Kohana::config('gravatar.'.$config) === NULL)
+			if ($config = Kohana::$config->load('gravatar')->$config === NULL)
 			{
 				throw new Kohana_Gravatar_Exception('Gravatar.__construct() , Invalid configuration group name : :config', array(':config' => $config));
 			}
 
-			$this->_config = $config + Kohana::config('gravatar.default');
+			$this->_config = $config + Kohana::$config->load('gravatar')->default;
 		}
 	}
 
@@ -269,14 +269,14 @@ class Kohana_Gravatar {
 	{
 		$string = $this->_config['service'].
 			'?gravatar_id='.md5($this->email).
-			'&s='.$this->_config['size'].
-			'&r='.$this->_config['rating'];
+			'&amp;s='.$this->_config['size'].
+			'&amp;r='.$this->_config['rating'];
 
 		if ( ! empty($this->_config['default']))
 		{
-			$string .= '&d='.$this->_config['default'];
+			$string .= '&amp;d='.$this->_config['default'];
 		}
-		
+
 		return $string;
 	}
 }
