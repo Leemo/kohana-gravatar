@@ -1,1 +1,1 @@
-<?php echo html::image($src, $attr); ?>
+<?php echo HTML::image($src, $attr) ?>
